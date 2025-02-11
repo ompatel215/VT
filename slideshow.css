@@ -1,172 +1,138 @@
 body {
     background: linear-gradient(135deg, #ffe6e6 0%, #ffb3b3 100%);
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 20px;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
-h1 {
-    color: #ff4d4d;
-    font-size: 2.5em;
-    margin: 20px;
-    animation: fadeInTitle 2s ease-out;
-    opacity: 0;
-    animation-fill-mode: forwards;
+.main-container {
+    max-width: 1000px;
+    width: 90%;
 }
 
-@keyframes fadeInTitle {
-    0% {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+.love-counter {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(255, 77, 77, 0.15);
+}
+
+.love-counter h3 {
+    font-family: 'Dancing Script', cursive;
+    color: #ff4d4d;
+    font-size: 2.5em;
+    margin: 0;
+    text-align: center;
+}
+
+.duration {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.time-unit {
+    text-align: center;
+}
+
+.time-unit span {
+    font-size: 2.5em;
+    color: #ff1a1a;
+    font-weight: bold;
+    display: block;
+}
+
+.time-unit label {
+    color: #ff4d4d;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .slideshow-container {
-    max-width: 800px;
-    width: 800px;
-    height: 600px;
-    position: relative;
-    margin: auto;
     background: rgba(255, 255, 255, 0.95);
     padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 30px rgba(255, 77, 77, 0.2);
-    border: 15px solid #fff;
-    background-image: 
-        url('https://www.transparenttextures.com/patterns/rose-petals.png'),
-        linear-gradient(to bottom right, #fff5f5, #ffe6e6);
-    animation: slideIn 1.5s ease-out;
-    opacity: 0;
-    animation-fill-mode: forwards;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(255, 77, 77, 0.2);
 }
 
 h1 {
+    font-family: 'Dancing Script', cursive;
     color: #ff4d4d;
-    font-size: 2.5em;
-    margin: 20px auto;
+    font-size: 3em;
     text-align: center;
-    width: 100%;
-    animation: fadeInTitle 2s ease-out;
-    opacity: 0;
-    animation-fill-mode: forwards;
+    margin: 0 0 30px 0;
+}
+
+.slides-wrapper {
+    position: relative;
+    margin-bottom: 20px;
 }
 
 .slide img {
     width: 100%;
-    height: 450px;  /* Fixed height */
-    object-fit: cover;  /* This will maintain aspect ratio */
-    border-radius: 10px;
-    border: 8px solid #fff;
-    box-shadow: 0 0 15px rgba(255, 77, 77, 0.2);
-}
-
-/* Add decorative corners */
-.slideshow-container::before,
-.slideshow-container::after {
-    content: '🌸';
-    position: absolute;
-    font-size: 30px;
-}
-
-.slideshow-container::before {
-    top: -15px;
-    left: -15px;
-}
-
-.slideshow-container::after {
-    bottom: -15px;
-    right: -15px;
-}
-
-@keyframes slideIn {
-    0% {
-        transform: translateY(50px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.slide {
-    display: none;
-}
-
-.slide img, .slide video {
-    width: 100%;
-    max-height: 500px;
-    object-fit: contain;
-    border-radius: 10px;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .prev, .next {
     cursor: pointer;
     position: absolute;
     top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: #ff4d4d;
-    font-weight: bold;
+    transform: translateY(-50%);
+    padding: 15px 20px;
+    color: white;
     font-size: 24px;
-    transition: 0.3s;
+    background: rgba(255, 77, 77, 0.8);
     border-radius: 50%;
-    user-select: none;
-    background: rgba(255, 255, 255, 0.8);
-}
-
-.next {
-    right: 0;
+    transition: all 0.3s ease;
 }
 
 .prev:hover, .next:hover {
-    background-color: #ff4d4d;
-    color: white;
+    background: #ff4d4d;
 }
+
+.prev { left: 20px; }
+.next { right: 20px; }
 
 .dot-container {
-    margin: 20px;
-    animation: fadeIn 2s ease-out;
-    animation-delay: 1s;
-    opacity: 0;
-    animation-fill-mode: forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    text-align: center;
+    margin-top: 20px;
 }
 
 .dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
+    height: 12px;
+    width: 12px;
     margin: 0 5px;
     background-color: #ffb3b3;
     border-radius: 50%;
     display: inline-block;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.active, .dot:hover {
+.dot:hover, .dot.active {
     background-color: #ff4d4d;
+    transform: scale(1.2);
 }
 
-.fade {
-    animation: fadeIn 1s;
-} 
+.floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
 
 .corner-flowers .flower {
     position: absolute;
@@ -192,4 +158,75 @@ h1 {
 .bottom-right {
     bottom: -20px;
     right: -20px;
+}
+
+.corner-decorations .rose {
+    position: absolute;
+    width: 200px;  /* Doubled from 100px */
+    height: 200px; /* Doubled from 100px */
+    z-index: 1;
+}
+
+.rose.top-left {
+    top: -80px;    /* Adjusted from -40px */
+    left: -80px;   /* Adjusted from -40px */
+    transform: rotate(-45deg);
+}
+
+.rose.top-right {
+    top: -80px;    /* Adjusted from -40px */
+    right: -80px;  /* Adjusted from -40px */
+    transform: rotate(45deg);
+}
+
+.rose.bottom-left {
+    bottom: -80px; /* Adjusted from -40px */
+    left: -80px;   /* Adjusted from -40px */
+    transform: rotate(-135deg);
+}
+
+.rose.bottom-right {
+    bottom: -80px; /* Adjusted from -40px */
+    right: -80px;  /* Adjusted from -40px */
+    transform: rotate(135deg);
+}
+
+.corner-decorations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.corner-decorations img {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.corner-decorations .rose.top-left {
+    top: -40px;
+    left: -40px;
+    transform: rotate(-45deg);
+}
+
+.corner-decorations .rose.top-right {
+    top: -40px;
+    right: -40px;
+    transform: rotate(45deg);
+}
+
+.corner-decorations .rose.bottom-left {
+    bottom: -40px;
+    left: -40px;
+    transform: rotate(-135deg);
+}
+
+.corner-decorations .rose.bottom-right {
+    bottom: -40px;
+    right: -40px;
+    transform: rotate(135deg);
 }

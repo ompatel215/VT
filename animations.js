@@ -36,3 +36,20 @@ musicBtn.addEventListener('click', async () => {
         alert('Unable to play music. Please try again.');
     }
 });
+
+function createFloatingHearts() {
+    const container = document.querySelector('.floating-hearts');
+    const hearts = ['❤️', '💖', '💝', '💕'];
+    
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+        container.appendChild(heart);
+        
+        setTimeout(() => heart.remove(), 10000);
+    }, 3000);
+}
+
+createFloatingHearts();

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Our Memories</title>
+    <title>Our Love Story 💑</title>
     <link rel="stylesheet" href="slideshow.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <style>
         .loading-screen {
             position: fixed;
@@ -65,54 +65,64 @@
     <div class="loading-screen">
         <div class="loading-heart">❤️</div>
     </div>
-    <div class="slideshow-container">
-        <h1>Our Special Moments 💝</h1>
+    
+    <div class="main-container">
         <div class="love-counter">
             <h3>Together for</h3>
             <div class="duration">
-                <span id="years">0</span> years
-                <span id="months">0</span> months
-                <span id="days">0</span> days
-                <span id="hours">0</span> hours
+                <div class="time-unit">
+                    <span id="years">0</span>
+                    <label>years</label>
+                </div>
+                <div class="time-unit">
+                    <span id="months">0</span>
+                    <label>months</label>
+                </div>
+                <div class="time-unit">
+                    <span id="days">0</span>
+                    <label>days</label>
+                </div>
+                <div class="time-unit">
+                    <span id="hours">0</span>
+                    <label>hours</label>
+                </div>
             </div>
         </div>
-        <div class="slide fade">
-            <img src="https://i.ibb.co/F4vhSmmz/1.jpg" alt="Memory 1">
+
+        <div class="slideshow-container">
+            <h1>Our Love Story 💝</h1>
+            <div class="slides-wrapper">
+                <div class="slide fade">
+                    <img src="https://i.ibb.co/F4vhSmmz/1.jpg" alt="Memory 1">
+                </div>
+                <div class="slide fade">
+                    <img src="https://i.ibb.co/GvR9Q0tM/2.jpg" alt="Memory 2">
+                </div>
+                <div class="slide fade">
+                    <img src="https://i.ibb.co/pvMyptCn/3.jpg" alt="Memory 3">
+                </div>
+                <div class="slide fade">
+                    <img src="https://i.ibb.co/FqnCSSDW/4.jpg" alt="Memory 4">
+                </div>
+                <div class="slide fade">
+                    <img src="https://i.ibb.co/JRHD03TL/5.jpg" alt="Memory 5">
+                </div>
+                <a class="prev" onclick="changeSlide(-1)">❮</a>
+                <a class="next" onclick="changeSlide(1)">❯</a>
+            </div>
+            
+            <div class="dot-container">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+            </div>
         </div>
-        <div class="slide fade">
-            <img src="https://i.ibb.co/GvR9Q0tM/2.jpg" alt="Memory 2">
-        </div>
-        <div class="slide fade">
-            <img src="https://i.ibb.co/pvMyptCn/3.jpg" alt="Memory 3">
-        </div>
-        <div class="slide fade">
-            <img src="https://i.ibb.co/FqnCSSDW/4.jpg" alt="Memory 4">
-        </div>
-        <div class="slide fade">
-            <img src="https://i.ibb.co/JRHD03TL/5.jpg" alt="Memory 5">
-        </div>
-        
-        
-        <a class="prev" onclick="changeSlide(-1)">❮</a>
-        <a class="next" onclick="changeSlide(1)">❯</a>
     </div>
 
-    <div class="corner-flowers">
-        <span class="flower top-left">🌺</span>
-        <span class="flower top-right">🌸</span>
-        <span class="flower bottom-left">🌸</span>
-        <span class="flower bottom-right">🌺</span>
-    </div>
-    
-    <div class="dot-container">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
-        <span class="dot" onclick="currentSlide(5)"></span>
-    </div>
+    <div class="floating-hearts"></div>
     <script src="slideshow.js"></script>
-    <script src="animations.js"></script>
     <script src="counter.js"></script>
     <script>
         if (localStorage.getItem('authenticated') !== 'true') {
