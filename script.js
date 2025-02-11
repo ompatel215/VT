@@ -11,6 +11,9 @@ function showResponse(answer) {
     const response = document.getElementById('response');
     if (answer === 'yes') {
         response.innerHTML = "Yay! I'm so happy! 💝";
+        setTimeout(() => {
+            window.location.href = 'slideshow.html';
+        }, 1500);
     } else {
         response.innerHTML = "Wrong answer, pick again! 😊";
     }

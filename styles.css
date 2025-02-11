@@ -119,4 +119,30 @@ img {
     margin: 20px;
     min-height: 60px;
     animation: fadeIn 0.5s;
+}
+
+.password-prompt {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.password-prompt input {
+    padding: 10px;
+    font-size: 1.2em;
+    margin: 10px;
+}
+
+.password-prompt button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.password-prompt button:hover {
+    background-color: #ff1a1a;
 } 
