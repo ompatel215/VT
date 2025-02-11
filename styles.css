@@ -21,34 +21,51 @@ body {
 
 h1 {
     color: #ff4d4d;
-    font-size: 2.5em;
+    font-size: 3.5em;
     margin: 20px;
+    text-shadow: 3px 3px 6px rgba(255, 77, 77, 0.3);
+    animation: titlePulse 2s infinite;
 }
 
-.mystery-box {
-    width: 200px;
-    height: 200px;
-    background-color: #ff4d4d;
-    border: 5px solid #ff1a1a;
-    border-radius: 50%;
-    cursor: pointer;
-    margin: 50px auto;
-    transition: transform 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 100px;
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
+@keyframes titlePulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
 
+.mystery-box {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(145deg, #ff6b6b, #ff4d4d);
+    border: 8px solid rgba(255, 26, 26, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 50px auto;
+    transition: all 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 120px;
+    animation: floatHeart 3s infinite;
+    box-shadow: 0 10px 30px rgba(255, 77, 77, 0.3),
+                inset 0 5px 15px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes floatHeart {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.1); }
+    100% { transform: translateY(0) scale(1); }
+}
+
 .mystery-box:hover {
-    transform: scale(1.15);
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: 0 15px 40px rgba(255, 77, 77, 0.4),
+                inset 0 5px 15px rgba(255, 255, 255, 0.5);
+}
+
+.mystery-box:active {
+    transform: scale(0.95);
+    box-shadow: 0 5px 15px rgba(255, 77, 77, 0.2);
 }
 
 .content {
@@ -147,33 +164,58 @@ img {
     background-color: #ff1a1a;
 }
 
-.password-display {
-    font-size: 2em;
-    margin: 20px;
-    color: #ff4d4d;
-}
-
 .number-pad {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 20px auto;
-    max-width: 300px;
+    gap: 15px;
+    margin: 30px auto;
+    max-width: 350px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(255, 77, 77, 0.1);
 }
 
 .number-pad button {
-    padding: 20px;
-    font-size: 1.5em;
-    background-color: #ff4d4d;
+    padding: 25px;
+    font-size: 2em;
+    font-family: 'Dancing Script', cursive;
+    background: linear-gradient(145deg, #ff6b6b, #ff4d4d);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 5px 5px 15px rgba(255, 77, 77, 0.2),
+                -5px -5px 15px rgba(255, 255, 255, 0.5);
 }
 
 .number-pad button:hover {
-    background-color: #ff1a1a;
+    background: linear-gradient(145deg, #ff4d4d, #ff6b6b);
+    transform: translateY(-2px);
+    box-shadow: 7px 7px 20px rgba(255, 77, 77, 0.3),
+                -7px -7px 20px rgba(255, 255, 255, 0.7);
+}
+
+.number-pad button:active {
+    transform: translateY(1px);
+    box-shadow: 3px 3px 10px rgba(255, 77, 77, 0.2),
+                -3px -3px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Special styling for Clear and Submit buttons */
+.number-pad button:nth-child(10),
+.number-pad button:last-child {
+    background: linear-gradient(145deg, #ff8c8c, #ff6b6b);
+    font-size: 1.5em;
+}
+
+.password-display {
+    font-size: 2.5em;
+    margin: 30px;
+    color: #ff4d4d;
+    text-shadow: 2px 2px 4px rgba(255, 77, 77, 0.2);
+    min-height: 50px;
 }
 
 .floating-hearts {

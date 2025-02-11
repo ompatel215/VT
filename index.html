@@ -6,27 +6,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     <script>
         let enteredPassword = '';
-
+        let attemptCount = 0;
+        const maxAttempts = 5;
+        
+        // Password is 8105
+        const password = '8105';
+        
         function addToPassword(num) {
+            if (attemptCount >= maxAttempts) {
+                alert('Too many attempts. Please try again later.');
+                return;
+            }
             enteredPassword += num;
-            document.getElementById('passwordDisplay').innerText = enteredPassword;
+            document.getElementById('passwordDisplay').innerText = '•'.repeat(enteredPassword.length);
         }
 
         function checkPassword() {
-            const correctPassword = '8105'; // Change this to your desired password
-            if (enteredPassword === correctPassword) {
+            if (attemptCount >= maxAttempts) {
+                alert('Too many attempts. Please try again later.');
+                return;
+            }
+
+            if (enteredPassword === password) {
                 document.getElementById('passwordPrompt').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
+                localStorage.setItem('authenticated', 'true');
             } else {
-                alert('Incorrect password. Please try again.');
-                enteredPassword = ''; // Reset password on incorrect entry
+                attemptCount++;
+                const remainingAttempts = maxAttempts - attemptCount;
+                alert(`Incorrect password. ${remainingAttempts} attempts remaining.`);
+                enteredPassword = '';
                 document.getElementById('passwordDisplay').innerText = '';
+                
+                if (attemptCount >= maxAttempts) {
+                    setTimeout(() => {
+                        attemptCount = 0;
+                    }, 30000); // Reset after 30 seconds
+                }
             }
         }
 
         function clearPassword() {
             enteredPassword = '';
             document.getElementById('passwordDisplay').innerText = '';
+        }
+
+        // Check if already authenticated
+        window.onload = function() {
+            if (localStorage.getItem('authenticated') === 'true') {
+                document.getElementById('passwordPrompt').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            }
         }
     </script>
 </head>

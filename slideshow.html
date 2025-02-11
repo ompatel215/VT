@@ -44,14 +44,24 @@
     <div class="slideshow-container">
         <h1>Our Special Moments 💝</h1>
         <div class="slide fade">
-            <img src="photo1.jpg" alt="Memory 1">
+            <img src="1.jpg" alt="Memory 1">
         </div>
         <div class="slide fade">
-            <img src="photo2.jpg" alt="Memory 2">
+            <img src="2.jpg" alt="Memory 2">
+        </div>
+    
+        <div class="slide fade">
+            <img src="3.jpg" alt="Memory 3">
+        </div>
+        <div class="slide fade">
+            <img src="4.jpg" alt="Memory 4">
+        </div>
+        <div class="slide fade">
+            <img src="5.jpg" alt="Memory 5">
         </div>
         <div class="slide fade">
             <video controls>
-                <source src="video1.mp4" type="video/mp4">
+                <source src="6.MOV" type="video/mp4">
             </video>
         </div>
         
@@ -63,8 +73,16 @@
         <span class="dot" onclick="currentSlide(1)"></span>
         <span class="dot" onclick="currentSlide(2)"></span>
         <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
     </div>
     <script src="slideshow.js"></script>
     <script src="animations.js"></script>
+    <script>
+        if (localStorage.getItem('authenticated') !== 'true') {
+            window.location.href = 'index.html';
+        }
+    </script>
 </body>
 </html> 
