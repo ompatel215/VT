@@ -5,23 +5,49 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     <script>
+        let enteredPassword = '';
+
+        function addToPassword(num) {
+            enteredPassword += num;
+            document.getElementById('passwordDisplay').innerText = enteredPassword;
+        }
+
         function checkPassword() {
-            const password = document.getElementById('password').value;
             const correctPassword = '8105'; // Change this to your desired password
-            if (password === correctPassword) {
+            if (enteredPassword === correctPassword) {
                 document.getElementById('passwordPrompt').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
             } else {
                 alert('Incorrect password. Please try again.');
+                enteredPassword = ''; // Reset password on incorrect entry
+                document.getElementById('passwordDisplay').innerText = '';
             }
+        }
+
+        function clearPassword() {
+            enteredPassword = '';
+            document.getElementById('passwordDisplay').innerText = '';
         }
     </script>
 </head>
 <body>
     <div id="passwordPrompt" class="password-prompt">
         <h2>Enter Password to Access the Mystery Box</h2>
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="checkPassword()">Submit</button>
+        <div id="passwordDisplay" class="password-display"></div>
+        <div class="number-pad">
+            <button onclick="addToPassword('1')">1</button>
+            <button onclick="addToPassword('2')">2</button>
+            <button onclick="addToPassword('3')">3</button>
+            <button onclick="addToPassword('4')">4</button>
+            <button onclick="addToPassword('5')">5</button>
+            <button onclick="addToPassword('6')">6</button>
+            <button onclick="addToPassword('7')">7</button>
+            <button onclick="addToPassword('8')">8</button>
+            <button onclick="addToPassword('9')">9</button>
+            <button onclick="clearPassword()">C</button>
+            <button onclick="addToPassword('0')">0</button>
+            <button onclick="checkPassword()">Submit</button>
+        </div>
     </div>
     
     <div id="mainContent" class="container" style="display: none;">

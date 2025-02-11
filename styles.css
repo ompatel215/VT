@@ -145,4 +145,33 @@ img {
 
 .password-prompt button:hover {
     background-color: #ff1a1a;
+}
+
+.password-display {
+    font-size: 2em;
+    margin: 20px;
+    color: #ff4d4d;
+}
+
+.number-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 300px;
+}
+
+.number-pad button {
+    padding: 20px;
+    font-size: 1.5em;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.number-pad button:hover {
+    background-color: #ff1a1a;
 } 
