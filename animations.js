@@ -19,12 +19,20 @@ setInterval(createHeart, 1000);
 const musicBtn = document.getElementById('musicToggle');
 const bgMusic = document.getElementById('bgMusic');
 
-musicBtn.addEventListener('click', () => {
-    if (bgMusic.paused) {
-        bgMusic.play();
-        musicBtn.textContent = '🔇';
-    } else {
-        bgMusic.pause();
-        musicBtn.textContent = '🎵';
+// Preload the audio
+bgMusic.load();
+
+musicBtn.addEventListener('click', async () => {
+    try {
+        if (bgMusic.paused) {
+            await bgMusic.play();
+            musicBtn.textContent = '🔇';
+        } else {
+            bgMusic.pause();
+            musicBtn.textContent = '🎵';
+        }
+    } catch (err) {
+        console.log('Error playing audio:', err);
+        alert('Unable to play music. Please try again.');
     }
 });
