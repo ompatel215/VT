@@ -81,17 +81,22 @@
     </div>
     
     <div id="mainContent" class="container" style="display: none;">
-        <h1>Tap the Heart ❤️</h1>
-        <div class="mystery-box" onclick="revealContent()">❤️</div>
+        <h1 class="heartbeat-title">Tap the Heart ❤️</h1>
+        <div class="mystery-box" onclick="revealContent()">
+            <div class="heart-glow">❤️</div>
+            <div class="heart-sparkles">✨</div>
+        </div>
         <div class="content" id="content">
-            <h2>Happy Valentine's Day!</h2>
-            <p>Will you be my Valentine?</p>
+            <h2 class="valentine-title">Happy Valentine's Day!</h2>
+            <p class="love-message">Will you be my Valentine?</p>
             <div class="button-container">
                 <button onclick="showResponse('yes')" class="btn yes-btn">Yes 💖</button>
                 <button onclick="showResponse('no')" class="btn no-btn">No 💔</button>
             </div>
             <div id="response" class="response"></div>
-            <img src="https://www.icegif.com/wp-content/uploads/2022/04/icegif-1481.gif">
+            <div class="love-gif">
+                <img src="https://www.icegif.com/wp-content/uploads/2022/04/icegif-1481.gif">
+            </div>
         </div>
     </div>
     <div class="floating-hearts" id="floatingHearts"></div>
