@@ -1,0 +1,24 @@
+.mystery-box {
+    width: 200px;
+    height: 200px;
+    background-color: #8b4513;
+    border: 5px solid #4a2508;
+    cursor: pointer;
+    margin: 50px auto;
+    transition: transform 0.3s;
+}
+
+.mystery-box:hover {
+    transform: scale(1.05);
+}
+
+.content {
+    text-align: center;
+    display: none;
+    margin: 20px;
+}
+
+img {
+    max-width: 300px;
+    margin: 10px;
+} 
