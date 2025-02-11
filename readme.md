@@ -1,1 +1,1 @@
-- domain pin is 106454
+- dmn pn 106454
