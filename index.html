@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Valentine's Mystery Box</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <script>
+        let enteredPassword = '';
+        let attemptCount = 0;
+        const maxAttempts = 5;
+        
+        // Password is 8105
+        const password = '8105';
+        
+        function addToPassword(num) {
+            if (attemptCount >= maxAttempts) {
+                alert('Too many attempts. Please try again later.');
+                return;
+            }
+            enteredPassword += num;
+            document.getElementById('passwordDisplay').innerText = '•'.repeat(enteredPassword.length);
+        }
+
+        function checkPassword() {
+            if (attemptCount >= maxAttempts) {
+                alert('Too many attempts. Please try again later.');
+                return;
+            }
+
+            if (enteredPassword === password) {
+                document.getElementById('passwordPrompt').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                localStorage.setItem('authenticated', 'true');
+            } else {
+                attemptCount++;
+                const remainingAttempts = maxAttempts - attemptCount;
+                alert(`Incorrect password. ${remainingAttempts} attempts remaining.`);
+                enteredPassword = '';
+                document.getElementById('passwordDisplay').innerText = '';
+                
+                if (attemptCount >= maxAttempts) {
+                    setTimeout(() => {
+                        attemptCount = 0;
+                    }, 30000); // Reset after 30 seconds
+                }
+            }
+        }
+
+        function clearPassword() {
+            enteredPassword = '';
+            document.getElementById('passwordDisplay').innerText = '';
+        }
+
+        // Check if already authenticated
+        window.onload = function() {
+            if (localStorage.getItem('authenticated') === 'true') {
+                document.getElementById('passwordPrompt').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="passwordPrompt" class="password-prompt">
+        <h2>Enter Password to Access the Mystery Box</h2>
+        <div id="passwordDisplay" class="password-display"></div>
+        <div class="number-pad">
+            <button onclick="addToPassword('1')">1</button>
+            <button onclick="addToPassword('2')">2</button>
+            <button onclick="addToPassword('3')">3</button>
+            <button onclick="addToPassword('4')">4</button>
+            <button onclick="addToPassword('5')">5</button>
+            <button onclick="addToPassword('6')">6</button>
+            <button onclick="addToPassword('7')">7</button>
+            <button onclick="addToPassword('8')">8</button>
+            <button onclick="addToPassword('9')">9</button>
+            <button onclick="clearPassword()">C</button>
+            <button onclick="addToPassword('0')">0</button>
+            <button onclick="checkPassword()">Submit</button>
+        </div>
+    </div>
+    
+    <div id="mainContent" class="container" style="display: none;">
+        <h1>Tap the Heart ❤️</h1>
+        <div class="mystery-box" onclick="revealContent()">❤️</div>
+        <div class="content" id="content">
+            <h2>Happy Valentine's Day!</h2>
+            <p>Will you be my Valentine?</p>
+            <div class="button-container">
+                <button onclick="showResponse('yes')" class="btn yes-btn">Yes 💖</button>
+                <button onclick="showResponse('no')" class="btn no-btn">No 💔</button>
+            </div>
+            <div id="response" class="response"></div>
+            <img src="https://www.icegif.com/wp-content/uploads/2022/04/icegif-1481.gif">
+        </div>
+    </div>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    <audio id="bgMusic" loop preload="auto" controlsList="nodownload">
+        <source src="SoniSoni.mp3" type="audio/mpeg">
+        <source src="SoniSoni.mp3" type="audio/mp3">
+    </audio>
+    <button id="musicToggle" class="music-btn">🎵</button>
+    <script src="script.js"></script>
+    <script src="animations.js"></script>
+</body>
+</html> 
