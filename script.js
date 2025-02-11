@@ -1,9 +1,12 @@
 function revealContent() {
-    const content = document.getElementById('content');
-    if (content.style.display === 'none' || content.style.display === '') {
-        content.style.display = 'block';
-    } else {
-        content.style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+    document.getElementById('bgMusic').play();
+    
+    // Create celebration hearts
+    for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+            createHeart();
+        }, i * 300);
     }
 }
 
@@ -12,6 +15,7 @@ function showResponse(answer) {
     if (answer === 'yes') {
         response.innerHTML = "Yay! I'm so happy! 💝";
         setTimeout(() => {
+            document.getElementById('bgMusic').pause();
             window.location.href = 'slideshow.html';
         }, 1500);
     } else {
@@ -19,6 +23,6 @@ function showResponse(answer) {
     }
     
     response.style.animation = 'none';
-    response.offsetHeight; // Trigger reflow
+    response.offsetHeight;
     response.style.animation = 'fadeIn 0.5s';
 } 

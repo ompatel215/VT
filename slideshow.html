@@ -118,12 +118,14 @@
                 <span class="dot" onclick="currentSlide(4)"></span>
                 <span class="dot" onclick="currentSlide(5)"></span>
             </div>
+            <button class="surprise-btn" onclick="playSuprise()">Click for a Surprise 🎵</button>
         </div>
     </div>
 
     <div class="floating-hearts"></div>
     <script src="slideshow.js"></script>
     <script src="counter.js"></script>
+    <script src="surprise.js"></script>
     <script>
         if (localStorage.getItem('authenticated') !== 'true') {
             window.location.href = 'index.html';
