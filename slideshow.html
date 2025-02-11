@@ -35,6 +35,30 @@
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
+
+        .love-counter {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff4d4d;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .love-counter h3 {
+            font-size: 1.8em;
+            margin: 10px 0;
+        }
+
+        .duration {
+            font-size: 1.5em;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .duration span {
+            font-weight: bold;
+            color: #ff1a1a;
+        }
     </style>
 </head>
 <body>
@@ -43,6 +67,15 @@
     </div>
     <div class="slideshow-container">
         <h1>Our Special Moments 💝</h1>
+        <div class="love-counter">
+            <h3>Together for</h3>
+            <div class="duration">
+                <span id="years">0</span> years
+                <span id="months">0</span> months
+                <span id="days">0</span> days
+                <span id="hours">0</span> hours
+            </div>
+        </div>
         <div class="slide fade">
             <img src="https://i.ibb.co/F4vhSmmz/1.jpg" alt="Memory 1">
         </div>
@@ -63,6 +96,13 @@
         <a class="prev" onclick="changeSlide(-1)">❮</a>
         <a class="next" onclick="changeSlide(1)">❯</a>
     </div>
+
+    <div class="corner-flowers">
+        <span class="flower top-left">🌺</span>
+        <span class="flower top-right">🌸</span>
+        <span class="flower bottom-left">🌸</span>
+        <span class="flower bottom-right">🌺</span>
+    </div>
     
     <div class="dot-container">
         <span class="dot" onclick="currentSlide(1)"></span>
@@ -73,6 +113,7 @@
     </div>
     <script src="slideshow.js"></script>
     <script src="animations.js"></script>
+    <script src="counter.js"></script>
     <script>
         if (localStorage.getItem('authenticated') !== 'true') {
             window.location.href = 'index.html';

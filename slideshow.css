@@ -1,5 +1,5 @@
 body {
-    background-color: #ffe6e6;
+    background: linear-gradient(135deg, #ffe6e6 0%, #ffb3b3 100%);
     font-family: 'Dancing Script', cursive;
     margin: 0;
     padding: 20px;
@@ -34,15 +34,59 @@ h1 {
 
 .slideshow-container {
     max-width: 800px;
+    width: 800px;
+    height: 600px;
     position: relative;
     margin: auto;
-    background: white;
-    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 77, 77, 0.3);
+    box-shadow: 0 0 30px rgba(255, 77, 77, 0.2);
+    border: 15px solid #fff;
+    background-image: 
+        url('https://www.transparenttextures.com/patterns/rose-petals.png'),
+        linear-gradient(to bottom right, #fff5f5, #ffe6e6);
     animation: slideIn 1.5s ease-out;
     opacity: 0;
     animation-fill-mode: forwards;
+}
+
+h1 {
+    color: #ff4d4d;
+    font-size: 2.5em;
+    margin: 20px auto;
+    text-align: center;
+    width: 100%;
+    animation: fadeInTitle 2s ease-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+.slide img {
+    width: 100%;
+    height: 450px;  /* Fixed height */
+    object-fit: cover;  /* This will maintain aspect ratio */
+    border-radius: 10px;
+    border: 8px solid #fff;
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.2);
+}
+
+/* Add decorative corners */
+.slideshow-container::before,
+.slideshow-container::after {
+    content: '🌸';
+    position: absolute;
+    font-size: 30px;
+}
+
+.slideshow-container::before {
+    top: -15px;
+    left: -15px;
+}
+
+.slideshow-container::after {
+    bottom: -15px;
+    right: -15px;
 }
 
 @keyframes slideIn {
@@ -123,3 +167,29 @@ h1 {
 .fade {
     animation: fadeIn 1s;
 } 
+
+.corner-flowers .flower {
+    position: absolute;
+    font-size: 35px;
+    z-index: 1;
+}
+
+.top-left {
+    top: -20px;
+    left: -20px;
+}
+
+.top-right {
+    top: -20px;
+    right: -20px;
+}
+
+.bottom-left {
+    bottom: -20px;
+    left: -20px;
+}
+
+.bottom-right {
+    bottom: -20px;
+    right: -20px;
+}
