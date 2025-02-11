@@ -1,24 +1,122 @@
+body {
+    background-color: #ffe6e6;
+    font-family: 'Dancing Script', cursive;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;  /* Prevents horizontal scrolling */
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #ff4d4d;
+    font-size: 2.5em;
+    margin: 20px;
+}
+
 .mystery-box {
     width: 200px;
     height: 200px;
-    background-color: #8b4513;
-    border: 5px solid #4a2508;
+    background-color: #ff4d4d;
+    border: 5px solid #ff1a1a;
+    border-radius: 50%;
     cursor: pointer;
     margin: 50px auto;
     transition: transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 .mystery-box:hover {
-    transform: scale(1.05);
+    transform: scale(1.15);
 }
 
 .content {
     text-align: center;
     display: none;
-    margin: 20px;
+    margin: 20px auto;  /* Changed to auto horizontal margins */
+    max-width: 800px;   /* Added max-width */
+    padding: 0 20px;    /* Added horizontal padding */
+    box-sizing: border-box;  /* Makes padding included in width */
+}
+
+.content h2 {
+    color: #ff4d4d;
+    font-size: 3em;
+}
+
+.content p {
+    color: #ff6666;
+    font-size: 2em;
 }
 
 img {
     max-width: 300px;
-    margin: 10px;
+    margin: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 77, 77, 0.3);
+}
+
+.button-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    padding: 15px 40px;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Dancing Script', cursive;
+    transition: transform 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+.yes-btn {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.no-btn {
+    background-color: #ffb3b3;
+    color: #ff4d4d;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.response {
+    font-size: 2em;
+    color: #ff4d4d;
+    margin: 20px;
+    min-height: 60px;
+    animation: fadeIn 0.5s;
 } 

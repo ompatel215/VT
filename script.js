@@ -5,4 +5,17 @@ function revealContent() {
     } else {
         content.style.display = 'none';
     }
+}
+
+function showResponse(answer) {
+    const response = document.getElementById('response');
+    if (answer === 'yes') {
+        response.innerHTML = "Yay! I'm so happy! 💝";
+    } else {
+        response.innerHTML = "Wrong answer, pick again! 😊";
+    }
+    
+    response.style.animation = 'none';
+    response.offsetHeight; // Trigger reflow
+    response.style.animation = 'fadeIn 0.5s';
 } 
