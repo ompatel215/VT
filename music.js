@@ -14,14 +14,18 @@ window.onload = function() {
         }
     }).catch(err => console.log('Error playing audio:', err));
 
-    musicBtn.addEventListener('click', () => {
+    // Remove any existing event listeners
+    musicBtn.replaceWith(musicBtn.cloneNode(true));
+    const newMusicBtn = document.getElementById('musicToggle');
+    
+    newMusicBtn.addEventListener('click', () => {
         if (audio.paused) {
             audio.play();
-            musicBtn.textContent = '🔇';
+            newMusicBtn.textContent = '🔇';
             localStorage.setItem('musicPlaying', 'true');
         } else {
             audio.pause();
-            musicBtn.textContent = '🎵';
+            newMusicBtn.textContent = '🎵';
             localStorage.setItem('musicPlaying', 'false');
         }
     });
@@ -32,10 +36,10 @@ window.onload = function() {
         localStorage.setItem('musicPlaying', !audio.paused);
     }, 1000);
 
-    // Start the floating rose petals
-    createFloatingRosePetals();
-    
-    // Initialize the first quote and start the quote rotation
-    document.getElementById('quote').textContent = loveQuotes[0];
-    changeQuote();
+    // Only create rose petals if we're on the slideshow page
+    if (window.location.pathname.includes('slideshow')) {
+        createFloatingRosePetals();
+        document.getElementById('quote').textContent = loveQuotes[0];
+        changeQuote();
+    }
 }; 
