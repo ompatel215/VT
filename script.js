@@ -13,9 +13,11 @@ function revealContent() {
 function showResponse(answer) {
     const response = document.getElementById('response');
     if (answer === 'yes') {
-        response.innerHTML = "Yay! I'm so happy! 💝";
+        response.innerHTML = "Yay! I Love You! 💝";
         setTimeout(() => {
-            document.getElementById('bgMusic').pause();
+            const audio = document.getElementById('bgMusic');
+            localStorage.setItem('musicTime', audio.currentTime);
+            localStorage.setItem('musicPlaying', !audio.paused);
             window.location.href = 'slideshow.html';
         }, 1500);
     } else {
