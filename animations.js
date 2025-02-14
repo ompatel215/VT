@@ -53,3 +53,18 @@ function createFloatingHearts() {
 }
 
 createFloatingHearts();
+
+function createFloatingRosePetals() {
+    const container = document.querySelector('.floating-hearts');
+    const petals = ['🌸', '🌹', '🌺', '💮'];
+    
+    setInterval(() => {
+        const petal = document.createElement('div');
+        petal.className = 'floating-petal';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.innerHTML = petals[Math.floor(Math.random() * petals.length)];
+        container.appendChild(petal);
+        
+        setTimeout(() => petal.remove(), 10000);
+    }, 2000);
+}

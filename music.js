@@ -31,4 +31,11 @@ window.onload = function() {
         localStorage.setItem('musicTime', audio.currentTime);
         localStorage.setItem('musicPlaying', !audio.paused);
     }, 1000);
+
+    // Start the floating rose petals
+    createFloatingRosePetals();
+    
+    // Initialize the first quote and start the quote rotation
+    document.getElementById('quote').textContent = loveQuotes[0];
+    changeQuote();
 }; 

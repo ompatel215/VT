@@ -276,3 +276,49 @@ h1 {
 .music-btn:hover {
     transform: scale(1.1);
 }
+
+.floating-petal {
+    position: fixed;
+    font-size: 24px;
+    pointer-events: none;
+    animation: float-dance 10s linear infinite;
+    z-index: 1000;
+}
+
+@keyframes float-dance {
+    0% {
+        transform: translateY(100vh) rotate(0deg) translateX(0);
+        opacity: 0;
+    }
+    25% {
+        transform: translateY(75vh) rotate(90deg) translateX(50px);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(50vh) rotate(180deg) translateX(-50px);
+        opacity: 1;
+    }
+    75% {
+        transform: translateY(25vh) rotate(270deg) translateX(50px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-20vh) rotate(360deg) translateX(0);
+        opacity: 0;
+    }
+}
+
+.love-quote {
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 600px;
+    text-align: center;
+}
+
+.quote-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8em;
+    color: #ff4d4d;
+    transition: opacity 0.5s ease;
+    text-shadow: 1px 1px 2px rgba(255, 77, 77, 0.2);
+}
