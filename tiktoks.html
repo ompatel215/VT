@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Our TikTok Memories</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .slides-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .slide {
+            display: none;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.2);
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 15px 20px;
+            color: white;
+            font-size: 24px;
+            background: rgba(255, 77, 77, 0.8);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .prev { left: -60px; }
+        .next { right: -60px; }
+
+        .dot-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: #ffb3b3;
+            border-radius: 50%;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: #ff4d4d;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1>Our TikTok Memories 💝</h1>
+        <div class="slideshow-container">
+            <div class="slides-wrapper">
+                <!-- Replace VIDEO_ID with actual TikTok video IDs -->
+                <div class="slide fade">
+                    <iframe width="325" height="580" 
+                        src="https://www.tiktok.com/embed/v2/7442908752077933854?_r=1&_t=ZT-8twRfZWMXra" 
+                        frameborder="0" allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="slide fade">
+                    <iframe width="325" height="580" 
+                        src="https://www.tiktok.com/embed/v2/VIDEO_ID2" 
+                        frameborder="0" allowfullscreen>
+                    </iframe>
+                </div>
+                <!-- Add more slides as needed -->
+                
+                <a class="prev" onclick="changeSlide(-1)">❮</a>
+                <a class="next" onclick="changeSlide(1)">❯</a>
+            </div>
+            
+            <div class="dot-container">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <!-- Add more dots to match number of slides -->
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="SoniSoni.mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicToggle" class="music-btn">🎵</button>
+    <script src="music.js"></script>
+    <script>
+        // Using your existing slideshow code
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function changeSlide(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+            
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex-1].style.display = "flex";
+            dots[slideIndex-1].className += " active";
+        }
+    </script>
+</body>
+</html>

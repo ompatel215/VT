@@ -4,7 +4,9 @@ const loveQuotes = [
     "My heart beats for you, now and forever.",
     "You make every day feel like Valentine's Day.",
     "In your eyes, I found my home.",
-    "With you, every moment is magical."
+    "With you, every moment is magical.",
+    "I love you 3000!",
+
 ];
 
 function changeQuote() {
