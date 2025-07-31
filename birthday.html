@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy 20th Birthday Bri! 🎂</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+            font-family: 'Roboto', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .birthday-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(236, 72, 153, 0.15);
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .birthday-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #be185d;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(190, 24, 93, 0.2);
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 2px 2px 4px rgba(190, 24, 93, 0.2); }
+            to { text-shadow: 2px 2px 8px rgba(190, 24, 93, 0.4); }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 15px;
+            background: #e5e7eb;
+            border-radius: 8px;
+            margin: 30px 0;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ec4899, #be185d, #f472b6);
+            width: 0%;
+            transition: width 0.8s ease;
+            border-radius: 8px;
+        }
+
+        .quiz-section {
+            display: none;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        .quiz-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-container {
+            background: linear-gradient(145deg, #fef3c7, #fde68a);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            color: #92400e;
+            margin-bottom: 25px;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 18px 25px;
+            background: white;
+            border: 3px solid #fbbf24;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .option:hover {
+            background: #fbbf24;
+            color: white;
+            border-color: #f59e0b;
+            transform: translateX(8px);
+        }
+
+        .option.correct {
+            background: #10b981;
+            color: white;
+            border-color: #059669;
+            animation: correctAnswer 0.6s ease;
+        }
+
+        .option.incorrect {
+            background: #ef4444;
+            color: white;
+            border-color: #dc2626;
+            animation: incorrectAnswer 0.6s ease;
+        }
+
+        @keyframes correctAnswer {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes incorrectAnswer {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+        }
+
+        .hint-reveal {
+            background: linear-gradient(145deg, #dbeafe, #bfdbfe);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+            animation: hintSlideIn 0.8s ease;
+        }
+
+        @keyframes hintSlideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hint-title {
+            font-size: 1.5rem;
+            color: #1e40af;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .hint-text {
+            font-size: 1.2rem;
+            color: #1e3a8a;
+            line-height: 1.6;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 12px 24px;
+            background: linear-gradient(145deg, #ec4899, #be185d);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .completion-message {
+            font-size: 2rem;
+            color: #be185d;
+            font-weight: 700;
+            margin: 30px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .final-message {
+            background: linear-gradient(145deg, #fef3c7, #fde68a);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 25px 0;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.2);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ec4899;
+            animation: confettiFall 3s linear infinite;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='index.html'">← Back to Home</button>
+    
+    <div class="birthday-container">
+        <h1 class="birthday-title">Happy 20th Birthday, Bri! 🎂</h1>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="stats">
+            <span id="questionNumber">Question 1 of 25</span>
+            <span id="score">Score: 0/25</span>
+        </div>
+
+        <div id="quizSection" class="quiz-section active">
+            <div class="question-container">
+                <div class="question-text" id="questionText"></div>
+                <div class="options-container" id="optionsContainer"></div>
+            </div>
+        </div>
+
+        <div id="finalSection" class="quiz-section">
+            <div class="completion-message">🎉 Congratulations! You've completed your birthday quiz! 🎉</div>
+            <div class="final-message">
+                <h2 style="color: #be185d; font-size: 2rem; margin-bottom: 20px;">Happy 20th Birthday, Bri!</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8; color: #4a5568;">
+                    You've completed all 25 questions and unlocked your special birthday hints! 
+                    <br><br>
+                    You're the most amazing person I know, and I'm so lucky to celebrate your 20th birthday with you. 
+                    Every day with you feels like a new adventure, filled with laughter, love, and endless joy.
+                    <br><br>
+                    Thank you for being my best friend, my biggest cheerleader, and my true love. 
+                    You make every moment special and every day worth living.
+                    <br><br>
+                    Here's to many more birthdays together! I love you so much, my beautiful Baby! 💕
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // LEGO Questions (5)
+            {
+                question: "Which LEGO theme features dragons and medieval castles?",
+                options: ["LEGO City", "LEGO Ninjago", "LEGO Castle", "LEGO Friends"],
+                correct: 2,
+                category: "LEGO"
+            },
+            {
+                question: "What is the name of the main character in LEGO Ninjago?",
+                options: ["Kai", "Lloyd", "Jay", "Cole"],
+                correct: 1,
+                category: "LEGO"
+            },
+            {
+                question: "Which LEGO set is known for its iconic red phone box?",
+                options: ["LEGO London", "LEGO Big Ben", "LEGO Architecture", "LEGO Creator"],
+                correct: 1,
+                category: "LEGO"
+            },
+            {
+                question: "What year was the first LEGO minifigure created?",
+                options: ["1974", "1978", "1982", "1986"],
+                correct: 1,
+                category: "LEGO"
+            },
+            {
+                question: "Which LEGO theme is based on a popular TV show about teenage superheroes?",
+                options: ["LEGO Super Heroes", "LEGO Ninjago", "LEGO Friends", "LEGO City"],
+                correct: 1,
+                category: "LEGO"
+            },
+
+            // K-Pop/ATEEZ Questions (5)
+            {
+                question: "What is ATEEZ's debut song?",
+                options: ["Say My Name", "Pirate King", "Wonderland", "Answer"],
+                correct: 1,
+                category: "K-Pop"
+            },
+            {
+                question: "Which ATEEZ member is the leader?",
+                options: ["Seonghwa", "Hongjoong", "Yunho", "San"],
+                correct: 1,
+                category: "K-Pop"
+            },
+            {
+                question: "What does ATEEZ stand for?",
+                options: ["A to Z", "Adolescent to Adult", "A Team", "Ace Team"],
+                correct: 0,
+                category: "K-Pop"
+            },
+            {
+                question: "Which ATEEZ song features the line 'I'm the one and only'?",
+                options: ["Wonderland", "Say My Name", "Answer", "Wave"],
+                correct: 1,
+                category: "K-Pop"
+            },
+            {
+                question: "How many members are in ATEEZ?",
+                options: ["6", "7", "8", "9"],
+                correct: 2,
+                category: "K-Pop"
+            },
+
+            // Marvel Questions (5)
+            {
+                question: "What is Spider-Man's real name?",
+                options: ["Peter Parker", "Miles Morales", "Gwen Stacy", "Tony Stark"],
+                correct: 0,
+                category: "Marvel"
+            },
+            {
+                question: "Which Avenger can control lightning?",
+                options: ["Iron Man", "Thor", "Captain America", "Hulk"],
+                correct: 1,
+                category: "Marvel"
+            },
+            {
+                question: "What is Captain America's shield made of?",
+                options: ["Steel", "Vibranium", "Adamantium", "Titanium"],
+                correct: 1,
+                category: "Marvel"
+            },
+            {
+                question: "Which Marvel hero is known as the 'Man of Iron'?",
+                options: ["Spider-Man", "Iron Man", "Thor", "Hulk"],
+                correct: 1,
+                category: "Marvel"
+            },
+            {
+                question: "What is the name of Thor's hammer?",
+                options: ["Stormbreaker", "Mjolnir", "Thunderstrike", "Lightning"],
+                correct: 1,
+                category: "Marvel"
+            },
+
+            // Disney Questions (5)
+            {
+                question: "Which Disney princess has the longest hair?",
+                options: ["Ariel", "Rapunzel", "Jasmine", "Belle"],
+                correct: 1,
+                category: "Disney"
+            },
+            {
+                question: "What is the name of Jasmine's pet tiger?",
+                options: ["Rajah", "Abu", "Iago", "Flounder"],
+                correct: 0,
+                category: "Disney"
+            },
+            {
+                question: "Which Disney movie features the song 'Let It Go'?",
+                options: ["Tangled", "Frozen", "Moana", "Brave"],
+                correct: 1,
+                category: "Disney"
+            },
+            {
+                question: "What is Belle's favorite thing to do?",
+                options: ["Dance", "Read", "Sing", "Cook"],
+                correct: 1,
+                category: "Disney"
+            },
+            {
+                question: "Which Disney princess lives under the sea?",
+                options: ["Ariel", "Moana", "Tiana", "Merida"],
+                correct: 0,
+                category: "Disney"
+            }
+        
+        ];
+
+        const bollywoodQuestions = [
+            {
+                question: "What does 'K3G' stand for in the movie title?",
+                options: ["Kabhi Khushi Kabhie Gham", "Kuch Kuch Hota Hai", "Kabhi Alvida Naa Kehna", "Kal Ho Naa Ho"],
+                correct: 0,
+                category: "Bollywood"
+            },
+            {
+                question: "Who plays the role of Rahul in Kuch Kuch Hota Hai?",
+                options: ["Shah Rukh Khan", "Aamir Khan", "Salman Khan", "Hrithik Roshan"],
+                correct: 0,
+                category: "Bollywood"
+            },
+            {
+                question: "What is the famous dialogue from K3G: 'It's all about loving your...'?",
+                options: ["Family", "Parents", "Mother", "Father"],
+                correct: 1,
+                category: "Bollywood"
+            },
+            {
+                question: "Which actress plays Anjali in Kuch Kuch Hota Hai?",
+                options: ["Kajol", "Rani Mukerji", "Preity Zinta", "Aishwarya Rai"],
+                correct: 0,
+                category: "Bollywood"
+            },
+            {
+                question: "What is the name of the school in Kuch Kuch Hota Hai?",
+                options: ["St. Xavier's", "St. Mary's", "St. Joseph's", "St. Francis"],
+                correct: 0,
+                category: "Bollywood"
+            }
+        ];
+
+        const allQuestions = [...questions, ...bollywoodQuestions];
+
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+
+        const hints = [
+            "🎁 Hint #1: Something you can wear!",
+            "🎁 Hint #2: Something that has a nice smell!",
+            "🎁 Hint #3: Something that you can use everyday!",
+            "🎁 Hint #4: Something that you can build!",
+            "🎁 Hint #5: Something that you can listen to!"
+        ];
+
+        function showQuestion() {
+            if (currentQuestion >= allQuestions.length) {
+                showFinalSection();
+                return;
+            }
+
+            const question = allQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.textContent = option;
+                optionElement.onclick = () => selectAnswer(index);
+                optionsContainer.appendChild(optionElement);
+            });
+
+            updateStats();
+        }
+
+        function selectAnswer(selectedIndex) {
+            const question = allQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+
+            options.forEach((option, index) => {
+                if (index === question.correct) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    option.classList.add('incorrect');
+                }
+            });
+
+            if (selectedIndex === question.correct) {
+                correctAnswers++;
+                createConfetti();
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                showQuestion();
+            }, 1500);
+        }
+
+        function updateStats() {
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1} of ${allQuestions.length}`;
+            document.getElementById('score').textContent = `Score: ${correctAnswers}/${allQuestions.length}`;
+            
+            const progress = ((currentQuestion + 1) / allQuestions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showFinalSection() {
+            document.getElementById('quizSection').classList.remove('active');
+            document.getElementById('finalSection').classList.add('active');
+            createConfetti();
+
+            const hintContainer = document.createElement('div');
+            hintContainer.style.marginTop = '30px';
+
+            const hintsToShow = Math.floor(correctAnswers / 5);
+            for (let i = 0; i < hintsToShow && i < hints.length; i++) {
+                const hintBox = document.createElement('div');
+                hintBox.className = 'hint-reveal';
+                hintBox.innerHTML = `
+                    <div class="hint-title">🎂 Birthday Gift Hint ${i + 1} 🎂</div>
+                    <div class="hint-text">${hints[i]}</div>
+                `;
+                hintContainer.appendChild(hintBox);
+            }
+
+            document.getElementById('finalSection').appendChild(hintContainer);
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.backgroundColor = ['#ec4899', '#be185d', '#f472b6', '#fbbf24', '#10b981'][Math.floor(Math.random() * 5)];
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // Start quiz
+        window.onload = function() {
+            showQuestion();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Games - Bri's Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+            font-family: 'Roboto', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .games-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(236, 72, 153, 0.15);
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .page-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #be185d;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(190, 24, 93, 0.2);
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 2px 2px 4px rgba(190, 24, 93, 0.2); }
+            to { text-shadow: 2px 2px 8px rgba(190, 24, 93, 0.4); }
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .game-card {
+            background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+            border-radius: 20px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.2);
+            border-color: #ec4899;
+        }
+
+        .game-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            color: #2d3a4b;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .game-description {
+            color: #4a5568;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 12px 24px;
+            background: linear-gradient(145deg, #ec4899, #be185d);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .daily-message {
+            background: linear-gradient(145deg, #fef3c7, #fde68a);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .daily-message h3 {
+            color: #92400e;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .daily-message p {
+            color: #78350f;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Game Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #9ca3af;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #ec4899;
+        }
+
+        .game-area {
+            margin: 20px 0;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Memory Game Styles */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(145deg, #ec4899, #be185d);
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched {
+            background: linear-gradient(145deg, #10b981, #059669);
+        }
+
+        /* Word Scramble Styles */
+        .scramble-area {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .scrambled-word {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #be185d;
+            margin: 20px 0;
+            letter-spacing: 5px;
+        }
+
+        .scramble-input {
+            padding: 15px 20px;
+            border: 3px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            margin: 10px;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+
+        .scramble-input:focus {
+            outline: none;
+            border-color: #ec4899;
+        }
+
+        .scramble-btn {
+            background: linear-gradient(145deg, #ec4899, #be185d);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .scramble-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        /* Trivia Styles */
+        .trivia-question {
+            font-size: 1.3rem;
+            color: #2d3a4b;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .trivia-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .trivia-option {
+            padding: 15px 20px;
+            background: white;
+            border: 3px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .trivia-option:hover {
+            background: #ec4899;
+            color: white;
+            border-color: #be185d;
+        }
+
+        .trivia-option.correct {
+            background: #10b981;
+            color: white;
+            border-color: #059669;
+        }
+
+        .trivia-option.incorrect {
+            background: #ef4444;
+            color: white;
+            border-color: #dc2626;
+        }
+
+        /* Daily Quote Styles */
+        .quote-container {
+            background: linear-gradient(145deg, #fef3c7, #fde68a);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .quote-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #92400e;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .quote-author {
+            font-size: 1.1rem;
+            color: #78350f;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='index.html'">← Back to Home</button>
+    
+    <div class="games-container">
+        <h1 class="page-title">🎮 Daily Games</h1>
+        
+        <div class="daily-message">
+            <h3>Welcome to Your Games Hub! 🎮</h3>
+            <p>Ready for some fun? Choose from our collection of daily puzzle games and brain teasers. Each game offers a unique challenge to keep your mind sharp and entertained!</p>
+        </div>
+
+        <div class="games-grid">
+            <div class="game-card" onclick="window.open('https://www.nytimes.com/games/connections', '_blank')">
+                <div class="game-icon">🔗</div>
+                <div class="game-title">Connections</div>
+                <div class="game-description">Group words that share a common theme. Can you find all the connections?</div>
+            </div>
+
+            <div class="game-card" onclick="window.open('https://www.nytimes.com/crosswords/game/mini', '_blank')">
+                <div class="game-icon">📝</div>
+                <div class="game-title">Mini Crossword</div>
+                <div class="game-description">Solve the daily mini crossword puzzle from The New York Times!</div>
+            </div>
+
+            <div class="game-card" onclick="window.open('https://www.nytimes.com/games/wordle/index.html', '_blank')">
+                <div class="game-icon">📝</div>
+                <div class="game-title">Wordle</div>
+                <div class="game-description">Guess the five-letter word in six tries. The classic word-guessing game!</div>
+            </div>
+
+            <div class="game-card" onclick="window.open('https://www.nytimes.com/games/strands', '_blank')">
+                <div class="game-icon">🧵</div>
+                <div class="game-title">Strands</div>
+                <div class="game-description">Find words that share a common theme in this word search puzzle!</div>
+            </div>
+
+            <div class="game-card" onclick="window.open('https://worldle.teuteuf.fr/', '_blank')">
+                <div class="game-icon">🌍</div>
+                <div class="game-title">Worldle</div>
+                <div class="game-description">Guess the country from its silhouette. Test your geography knowledge!</div>
+            </div>
+
+            <div class="game-card" onclick="window.open('https://www.flagle.io/', '_blank')">
+                <div class="game-icon">🏳️</div>
+                <div class="game-title">Flagle</div>
+                <div class="game-description">Guess the country from its flag. How many flags do you recognize?</div>
+            </div>
+
+            <div class="game-card" onclick="window.open('https://globle-game.com/', '_blank')">
+                <div class="game-icon">🌎</div>
+                <div class="game-title">Globle</div>
+                <div class="game-description">Guess the country with distance and direction hints. Geography meets Wordle!</div>
+            </div>
+
+            <div class="game-card" onclick="window.open('https://www.playcardle.com/', '_blank')">
+                <div class="game-icon">🚗</div>
+                <div class="game-title">Cardle</div>
+                <div class="game-description">Guess the car in this daily car guessing game. How well do you know your cars?</div>
+            </div>
+
+            <div class="game-card" onclick="window.open('https://cardle.themillhousegroup.com/', '_blank')">
+                <div class="game-icon">🏎️</div>
+                <div class="game-title">Cardle (Alt)</div>
+                <div class="game-description">Another version of the car guessing game. Try both and see which you prefer!</div>
+            </div>
+
+            <div class="game-card" onclick="window.open('https://genitle.herraproductions.com/?utm_source=twl_website&utm_medium=referral', '_blank')">
+                <div class="game-icon">👤</div>
+                <div class="game-title">Genitle</div>
+                <div class="game-description">A unique anatomy guessing game. Test your knowledge in this educational puzzle!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Modals -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeGame()">&times;</span>
+            <div id="gameContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Game data
+        const gameData = {
+            memory: {
+                title: "🧠 Memory Match",
+                description: "Find all the matching pairs!",
+                pairs: ['💕', '🎂', '🌹', '🎵', '🦸‍♀️', '👑', '🌺', '🎮']
+            },
+            scramble: {
+                title: "🔤 Word Scramble",
+                description: "Unscramble the letters to reveal a sweet message!",
+                words: [
+                    { scrambled: "LOVE", answer: "LOVE" },
+                    { scrambled: "BRI", answer: "BRI" },
+                    { scrambled: "HAPPY", answer: "HAPPY" },
+                    { scrambled: "SWEET", answer: "SWEET" }
+                ]
+            },
+            trivia: {
+                title: "❓ Daily Trivia",
+                description: "Test your knowledge about your favorite things!",
+                questions: [
+                    {
+                        question: "Which Disney princess has the longest hair?",
+                        options: ["Jasmine", "Rapunzel", "Ariel", "Belle"],
+                        correct: 1
+                    },
+                    {
+                        question: "What is ATEEZ's most popular song?",
+                        options: ["Wonderland", "Say My Name", "Wave", "Answer"],
+                        correct: 0
+                    },
+                    {
+                        question: "Which Marvel hero can swing from webs?",
+                        options: ["Spider-Man", "Thor", "Iron Man", "Hulk"],
+                        correct: 0
+                    },
+                    {
+                        question: "What does 'Ohana' mean in Hawaiian?",
+                        options: ["Hello", "Family", "Love", "Friend"],
+                        correct: 1
+                    }
+                ]
+            },
+            quote: {
+                title: "💝 Daily Quote",
+                description: "Your daily dose of love and inspiration!",
+                quotes: [
+                    { text: "You are my today and all of my tomorrows.", author: "Leo Christopher" },
+                    { text: "Every love story is beautiful, but ours is my favorite.", author: "Anonymous" },
+                    { text: "You make every day feel like Valentine's Day.", author: "Anonymous" },
+                    { text: "I love you not only for what you are, but for what I am when I am with you.", author: "Roy Croft" },
+                    { text: "You are my sunshine on cloudy days.", author: "Anonymous" }
+                ]
+            }
+        };
+
+        let currentGame = null;
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+
+        function openGame(gameType) {
+            currentGame = gameType;
+            const modal = document.getElementById('gameModal');
+            const content = document.getElementById('gameContent');
+            
+            const game = gameData[gameType];
+            content.innerHTML = `
+                <h2 style="color: #be185d; font-size: 2rem; margin-bottom: 20px;">${game.title}</h2>
+                <p style="color: #4a5568; font-size: 1.1rem; margin-bottom: 30px;">${game.description}</p>
+                <div class="game-area" id="gameArea"></div>
+            `;
+            
+            modal.style.display = 'block';
+            
+            // Initialize specific game
+            if (gameType === 'memory') {
+                initMemoryGame();
+            } else if (gameType === 'scramble') {
+                initScrambleGame();
+            } else if (gameType === 'trivia') {
+                initTriviaGame();
+            } else if (gameType === 'quote') {
+                initQuoteGame();
+            }
+        }
+
+        function closeGame() {
+            document.getElementById('gameModal').style.display = 'none';
+            currentGame = null;
+        }
+
+        // Memory Game
+        function initMemoryGame() {
+            const gameArea = document.getElementById('gameArea');
+            const pairs = gameData.memory.pairs;
+            const cards = [...pairs, ...pairs].sort(() => Math.random() - 0.5);
+            
+            let flippedCards = [];
+            let matchedPairs = 0;
+            
+            gameArea.innerHTML = `
+                <div class="memory-grid">
+                    ${cards.map((card, index) => `
+                        <div class="memory-card" onclick="flipCard(this, '${card}', ${index})">
+                            ❓
+                        </div>
+                    `).join('')}
+                </div>
+                <div style="margin-top: 20px; font-size: 1.1rem; color: #4a5568;">
+                    Matches: ${matchedPairs}/${pairs.length}
+                </div>
+            `;
+            
+            window.flipCard = function(cardElement, cardValue, index) {
+                if (cardElement.classList.contains('flipped') || cardElement.classList.contains('matched')) return;
+                
+                cardElement.innerHTML = cardValue;
+                cardElement.classList.add('flipped');
+                flippedCards.push({ element: cardElement, value: cardValue });
+                
+                if (flippedCards.length === 2) {
+                    const [card1, card2] = flippedCards;
+                    if (card1.value === card2.value) {
+                        card1.element.classList.add('matched');
+                        card2.element.classList.add('matched');
+                        matchedPairs++;
+                        
+                        if (matchedPairs === pairs.length) {
+                            setTimeout(() => {
+                                alert('🎉 Congratulations! You found all the matches! 🎉');
+                            }, 500);
+                        }
+                    } else {
+                        setTimeout(() => {
+                            card1.element.innerHTML = '❓';
+                            card2.element.innerHTML = '❓';
+                            card1.element.classList.remove('flipped');
+                            card2.element.classList.remove('flipped');
+                        }, 1000);
+                    }
+                    flippedCards = [];
+                }
+            };
+        }
+
+        // Scramble Game
+        function initScrambleGame() {
+            const gameArea = document.getElementById('gameArea');
+            const words = gameData.scramble.words;
+            const randomWord = words[Math.floor(Math.random() * words.length)];
+            
+            gameArea.innerHTML = `
+                <div class="scramble-area">
+                    <h3 style="color: #be185d; margin-bottom: 20px;">Unscramble this word:</h3>
+                    <div class="scrambled-word">${randomWord.scrambled}</div>
+                    <input type="text" class="scramble-input" id="scrambleInput" placeholder="Enter your answer...">
+                    <br>
+                    <button class="scramble-btn" onclick="checkScrambleAnswer()">Submit Answer</button>
+                    <button class="scramble-btn" onclick="showScrambleHint()">Get Hint</button>
+                </div>
+            `;
+            
+            window.checkScrambleAnswer = function() {
+                const input = document.getElementById('scrambleInput');
+                const answer = input.value.toUpperCase();
+                
+                if (answer === randomWord.answer) {
+                    alert('🎉 Correct! Great job! 🎉');
+                } else {
+                    alert('❌ Try again! The word is: ' + randomWord.answer);
+                }
+            };
+            
+            window.showScrambleHint = function() {
+                alert('💡 Hint: Think about something sweet and loving!');
+            };
+        }
+
+        // Trivia Game
+        function initTriviaGame() {
+            const gameArea = document.getElementById('gameArea');
+            const questions = gameData.trivia.questions;
+            currentQuestion = 0;
+            correctAnswers = 0;
+            
+            function showQuestion() {
+                if (currentQuestion >= questions.length) {
+                    gameArea.innerHTML = `
+                        <div style="text-align: center; padding: 40px;">
+                            <h3 style="color: #be185d; font-size: 1.8rem;">🎉 Quiz Complete! 🎉</h3>
+                            <p style="font-size: 1.2rem; color: #4a5568;">You got ${correctAnswers}/${questions.length} correct!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const question = questions[currentQuestion];
+                gameArea.innerHTML = `
+                    <div class="trivia-question">${question.question}</div>
+                    <div class="trivia-options">
+                        ${question.options.map((option, index) => `
+                            <div class="trivia-option" onclick="selectTriviaAnswer(${index})">${option}</div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            window.selectTriviaAnswer = function(selectedIndex) {
+                const question = questions[currentQuestion];
+                const options = document.querySelectorAll('.trivia-option');
+                
+                options.forEach((option, index) => {
+                    if (index === question.correct) {
+                        option.classList.add('correct');
+                    } else if (index === selectedIndex) {
+                        option.classList.add('incorrect');
+                    }
+                });
+                
+                if (selectedIndex === question.correct) {
+                    correctAnswers++;
+                }
+                
+                setTimeout(() => {
+                    currentQuestion++;
+                    showQuestion();
+                }, 1500);
+            };
+            
+            showQuestion();
+        }
+
+        // Quote Game
+        function initQuoteGame() {
+            const gameArea = document.getElementById('gameArea');
+            const quotes = gameData.quote.quotes;
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            
+            gameArea.innerHTML = `
+                <div class="quote-container">
+                    <div class="quote-text">"${randomQuote.text}"</div>
+                    <div class="quote-author">- ${randomQuote.author}</div>
+                </div>
+                <div style="margin-top: 30px;">
+                    <button class="scramble-btn" onclick="getNewQuote()">Get Another Quote</button>
+                </div>
+            `;
+            
+            window.getNewQuote = function() {
+                const newQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                const quoteText = document.querySelector('.quote-text');
+                const quoteAuthor = document.querySelector('.quote-author');
+                
+                quoteText.textContent = `"${newQuote.text}"`;
+                quoteAuthor.textContent = `- ${newQuote.author}`;
+            };
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('gameModal');
+            if (event.target === modal) {
+                closeGame();
+            }
+        }
+    </script>
+</body>
+</html> 

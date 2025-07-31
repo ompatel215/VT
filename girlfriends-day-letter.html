@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>For Bri - Girlfriend's Day</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+            font-family: 'Roboto', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .letter-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(236, 72, 153, 0.15);
+            position: relative;
+            overflow: hidden;
+            z-index: 2; /* Adjusted z-index */
+        }
+
+        .flower-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .flower {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .flower:nth-child(1) { top: 10px; left: 10px; animation-delay: 0s; }
+        .flower:nth-child(2) { top: 10px; right: 10px; animation-delay: 0.5s; }
+        .flower:nth-child(3) { bottom: 10px; left: 10px; animation-delay: 1s; }
+        .flower:nth-child(4) { bottom: 10px; right: 10px; animation-delay: 1.5s; }
+        .flower:nth-child(5) { top: 50%; left: 10px; animation-delay: 0.3s; }
+        .flower:nth-child(6) { top: 50%; right: 10px; animation-delay: 0.8s; }
+        .flower:nth-child(7) { left: 50%; top: 10px; animation-delay: 1.2s; }
+        .flower:nth-child(8) { left: 50%; bottom: 10px; animation-delay: 0.7s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .letter-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .letter-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #be185d;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(190, 24, 93, 0.2);
+        }
+
+        .letter-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 30px;
+            text-align: left;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #be185d;
+            text-align: right;
+            margin-top: 30px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: #ec4899;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+
+        .back-button:hover {
+            background: #be185d;
+        }
+
+        .rose-left, .rose-right {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 8rem;
+            color: #ec4899;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .rose-left {
+            left: 110px;
+            animation: floatRose 4s ease-in-out infinite;
+        }
+
+        .rose-right {
+            right: 110px;
+            animation: floatRose 4s ease-in-out infinite reverse;
+        }
+
+        @keyframes floatRose {
+            0%, 100% { transform: translateY(-50%) rotate(0deg); }
+            50% { transform: translateY(-50%) rotate(5deg) translateY(-10px); }
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1rem;
+            color: #ec4899;
+            animation: heartFloat 4s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes heartFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="window.location.href='index.html'">← Back to Home</button>
+    
+    <div class="rose-left">🌹</div>
+    <div class="rose-right">🌹</div>
+    
+    <div class="letter-container">
+        <div class="letter-content">
+            <h1 class="letter-title">Dear Bri</h1>
+            
+            <div class="letter-text"> 
+                <p>From the moment I met you, I could tell you were special, and especially after our first Thanksgiving, I knew you were the one. The one I couldn't get out of my head, the one I think of when a song is playing, the person I hope to see as soon as possible.</p> 
+                <p>You brought so much light, laughter, and love into my life in ways I didn't even know I needed. I love how we talk every day, play our fun little games, and fall asleep on FaceTime. I love how weird we are together, I feel like you're the one person I can be completely myself with. Laughing at the silliest things like little kids. You're the one person who truly gets me, and sometimes, you know me better than I know myself.</p> 
+                <p>I love all the shows we watch together and you watching Ninjago definitely shows how much you love me. I love our Chili's dates, Taco Bell and wingstop runs, even going to the store is a million times better going with you. </p> 
+                <p>You're my best friend for life, the person I can tell anything to, the one who knows me better than anyone else. I still remember that day we texted until 5 AM when we first started talking. After that, for weeks, I was so happy. Life didn't even feel real. I knew right then you were someone special. The person I would drive hours to see, even for a second. The person who I believe deserves the world.</p>
+                 <p>Thank you for being my best friend, my biggest cheerleader, and my true love. Thank you for accepting me exactly as I am, for supporting my dreams, and for loving me unconditionally.</p> 
+                 <p>I'm so proud to call you my girlfriend. You are the most beautiful person I've ever known inside and out, and your love is the greatest gift.</p> 
+                 <p>I promise to love you more each day, to be there for you always, and to cherish every moment we share together. You deserve all the happiness in the world, and I'm so grateful to be the one who gets to love you.</p> 
+                 <p>You are my everything. My forever. My always. I love you so much my baby. Happy Girlfriend's Day</p> </div>
+            
+            <div class="signature">
+                Omi
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

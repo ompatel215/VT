@@ -1,111 +1,146 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Valentine's Mystery Box</title>
+    <title>Welcome to Bri's Site</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #fdf2f8;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        .homepage-container {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(236, 72, 153, 0.15);
+            padding: 40px 30px;
+            text-align: center;
+            max-width: 500px;
+        }
+        .homepage-title {
+            font-size: 2.2rem;
+            color: #be185d;
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+        .homepage-desc {
+            font-size: 1.1rem;
+            color: #4a5568;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 16px 24px;
+            background: #ec4899;
+            color: #fff;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-button:hover {
+            background: #be185d;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+        }
+        .nav-button.coming-soon {
+            background: #fbbf24;
+            cursor: not-allowed;
+        }
+        .nav-button.coming-soon:hover {
+            background: #fbbf24;
+            transform: none;
+            box-shadow: none;
+        }
+        .coming-soon-text {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 8px;
+        }
+        .logout-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background: #94a3b8;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        .logout-btn:hover {
+            background: #64748b;
+        }
+    </style>
     <script>
-        let enteredPassword = '';
-        let attemptCount = 0;
-        const maxAttempts = 5;
-        
-        // Password is 8105
-        const password = '8105';
-        
-        function addToPassword(num) {
-            if (attemptCount >= maxAttempts) {
-                alert('Too many attempts. Please try again later.');
-                return;
-            }
-            enteredPassword += num;
-            document.getElementById('passwordDisplay').innerText = '•'.repeat(enteredPassword.length);
-        }
-
-        function checkPassword() {
-            if (attemptCount >= maxAttempts) {
-                alert('Too many attempts. Please try again later.');
-                return;
-            }
-
-            if (enteredPassword === password) {
-                document.getElementById('passwordPrompt').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-                localStorage.setItem('authenticated', 'true');
-            } else {
-                attemptCount++;
-                const remainingAttempts = maxAttempts - attemptCount;
-                alert(`Incorrect password. ${remainingAttempts} attempts remaining.`);
-                enteredPassword = '';
-                document.getElementById('passwordDisplay').innerText = '';
-                
-                if (attemptCount >= maxAttempts) {
-                    setTimeout(() => {
-                        attemptCount = 0;
-                    }, 30000); // Reset after 30 seconds
-                }
-            }
-        }
-
-        function clearPassword() {
-            enteredPassword = '';
-            document.getElementById('passwordDisplay').innerText = '';
-        }
-
-        // Check if already authenticated
+        // Check authentication on page load
         window.onload = function() {
-            if (localStorage.getItem('authenticated') === 'true') {
-                document.getElementById('passwordPrompt').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
+            if (localStorage.getItem('siteAuthenticated') !== 'true') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Check if login is still valid (24 hours)
+            const loginTime = localStorage.getItem('loginTime');
+            if (loginTime) {
+                const currentTime = Date.now();
+                const hoursSinceLogin = (currentTime - loginTime) / (1000 * 60 * 60);
+                
+                if (hoursSinceLogin >= 24) {
+                    // Clear expired authentication
+                    localStorage.removeItem('siteAuthenticated');
+                    localStorage.removeItem('loginTime');
+                    window.location.href = 'login.html';
+                    return;
+                }
             }
         }
     </script>
 </head>
 <body>
-    <div id="passwordPrompt" class="password-prompt">
-        <h2>Enter Password to Access the Website</h2>
-        <div id="passwordDisplay" class="password-display"></div>
-        <div class="number-pad">
-            <button onclick="addToPassword('1')">1</button>
-            <button onclick="addToPassword('2')">2</button>
-            <button onclick="addToPassword('3')">3</button>
-            <button onclick="addToPassword('4')">4</button>
-            <button onclick="addToPassword('5')">5</button>
-            <button onclick="addToPassword('6')">6</button>
-            <button onclick="addToPassword('7')">7</button>
-            <button onclick="addToPassword('8')">8</button>
-            <button onclick="addToPassword('9')">9</button>
-            <button onclick="clearPassword()">C</button>
-            <button onclick="addToPassword('0')">0</button>
-            <button onclick="checkPassword()">Submit</button>
-        </div>
-    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
     
-    <div id="mainContent" class="container" style="display: none;">
-        <h1 class="heartbeat-title">Tap the Heart ❤️</h1>
-        <div class="mystery-box" onclick="revealContent()">
-            <div class="heart-glow">❤️</div>
-            <div class="heart-sparkles">✨</div>
+    <div class="homepage-container">
+        <h1 class="homepage-title">Welcome to Bri's Site</h1>
+        <p class="homepage-desc">
+            This little site began as a Valentine's gift — but love doesn't stop at just one day.  
+            <br><br>
+            So now, this is our space. A growing collection of sweet surprises, shared smiles, and special moments — made just for us.  
+            <br><br>
+            For every birthday, every milestone, and all the magic in between… there'll be a page waiting here.
+        </p>
+        <div class="nav-buttons">
+            <a href="secret.html" class="nav-button">💝 Valentine's Day</a>
+            <a href="girlfriends-day.html" class="nav-button">💕 Girlfriend's Day</a>
+            <a href="birthday.html" class="nav-button">🎂 20th Birthday</a>
+            <a href="daily-games.html" class="nav-button">🎮 Daily Games</a>
         </div>
-        <div class="content" id="content">
-            <h2 class="valentine-title">Happy Valentine's Day!</h2>
-            <p class="love-message">Will you be my Valentine?</p>
-            <div class="button-container">
-                <button onclick="showResponse('yes')" class="btn yes-btn">Yes 💖</button>
-                <button onclick="showResponse('no')" class="btn no-btn">No 💔</button>
-            </div>
-            <div id="response" class="response"></div>
-            <div class="love-gif">
-                <img src="https://www.icegif.com/wp-content/uploads/2022/04/icegif-1481.gif">
-            </div>
-        </div>
+        <div class="coming-soon-text">More surprises coming soon!</div>
     </div>
-    <div class="floating-hearts" id="floatingHearts"></div>
-    <audio id="bgMusic" loop>
-        <source src="SoniSoni.mp3" type="audio/mpeg">
-    </audio>
-    <button id="musicToggle" class="music-btn">🎵</button>
-    <script src="script.js"></script>
-    <script src="animations.js"></script>
-    <script src="music.js"></script>
+
+    <script>
+        function logout() {
+            localStorage.removeItem('siteAuthenticated');
+            localStorage.removeItem('loginTime');
+            window.location.href = 'login.html';
+        }
+    </script>
 </body>
-</html> 
+</html>
