@@ -168,6 +168,43 @@
                 opacity: 0;
             }
         }
+
+        .reveal-button {
+            background: linear-gradient(145deg, #ec4899, #be185d);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        .reveal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .hidden-message {
+            display: none;
+            background: linear-gradient(145deg, #fef3c7, #fde68a);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            color: #92400e;
+            text-align: center;
+            animation: messageSlideIn 0.8s ease;
+        }
+
+        @keyframes messageSlideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -188,12 +225,29 @@
                  <p>Thank you for being my best friend, my biggest cheerleader, and my true love. Thank you for accepting me exactly as I am, for supporting my dreams, and for loving me unconditionally.</p> 
                  <p>I'm so proud to call you my girlfriend. You are the most beautiful person I've ever known inside and out, and your love is the greatest gift.</p> 
                  <p>I promise to love you more each day, to be there for you always, and to cherish every moment we share together. You deserve all the happiness in the world, and I'm so grateful to be the one who gets to love you.</p> 
-                 <p>You are my everything. My forever. My always. I love you so much my baby. Happy Girlfriend's Day</p> </div>
+                 <p>You are my everything. My forever. My always. I love you so much my baby. Happy Girlfriend's Day</p> 
+                </div>
             
             <div class="signature">
                 Omi
             </div>
+            
+            <button class="reveal-button" onclick="revealMessage()">Reveal</button>
+            <div class="hidden-message" id="hiddenMessage">
+                I did not tear up writing this it was you
+            </div>
         </div>
     </div>
+
+    <script>
+        function revealMessage() {
+            const message = document.getElementById('hiddenMessage');
+            message.style.display = 'block';
+            
+            // Hide the button after revealing
+            const button = document.querySelector('.reveal-button');
+            button.style.display = 'none';
+        }
+    </script>
 </body>
 </html> 
