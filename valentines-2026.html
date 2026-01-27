@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine?</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    background:linear-gradient(135deg,#1a1a1a,#2d1b1b,#1a1a1a);
+    font-family:'Roboto',sans-serif;
+    min-height:100vh;
+    overflow:hidden;
+}
+
+/* Floating hearts */
+.floating-hearts-bg{
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+}
+.floating-heart{
+    position:absolute;
+    font-size:2rem;
+    opacity:0;
+    animation:floatUp 14s infinite ease-in-out;
+}
+@keyframes floatUp{
+    0%{transform:translateY(110vh);opacity:0}
+    10%,90%{opacity:.6}
+    100%{transform:translateY(-20vh) rotate(360deg);opacity:0}
+}
+
+/* Intro */
+.intro{
+    position:fixed; inset:0;
+    background:rgba(26,26,26,.97);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+    text-align:center;
+}
+.intro h1{
+    font-family:'Playfair Display',serif;
+    font-size:3rem;
+    background:linear-gradient(135deg,#d4af37,#f4d03f,#ffd700);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+.intro p{
+    margin-top:20px;
+    font-size:1.2rem;
+    color:#e5e5e5;
+}
+.intro button{
+    margin-top:40px;
+    padding:16px 45px;
+    border-radius:50px;
+    background:rgba(212,175,55,.2);
+    color:rgba(212,175,55,.7);
+    font-size:1.2rem;
+    cursor:pointer;
+    border:2px solid rgba(212,175,55,.3);
+}
+.intro button:hover{
+    background:linear-gradient(135deg,#ec4899,#f472b6);
+    color:#fff;
+}
+
+/* Main Card */
+.container{
+    position:relative;
+    z-index:1;
+    max-width:700px;
+    margin:8vh auto 0;
+    background:linear-gradient(135deg,rgba(26,26,26,.95),rgba(45,27,27,.95));
+    border-radius:30px;
+    padding:60px;
+    text-align:center;
+    display:none;
+    border:2px solid rgba(212,175,55,.3);
+    box-shadow:0 20px 60px rgba(236,72,153,.4);
+}
+
+.typewriter{
+    font-size:1.2rem;
+    color:#e5e5e5;
+    line-height:1.8;
+    min-height:120px;
+}
+
+.question{
+    font-family:'Playfair Display',serif;
+    font-size:3rem;
+    margin:40px 0 30px;
+    background:linear-gradient(135deg,#ec4899,#f472b6);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+}
+
+.yes-btn,.no-btn{
+    padding:18px 45px;
+    border-radius:50px;
+    font-size:1.2rem;
+    border:none;
+    cursor:pointer;
+}
+
+.yes-btn{
+    background:rgba(212,175,55,.2);
+    color:rgba(212,175,55,.7);
+    border:2px solid rgba(212,175,55,.3);
+}
+.yes-btn:hover{
+    background:linear-gradient(135deg,#d4af37,#f4d03f);
+    color:#000;
+}
+
+.no-btn{
+    background:#111;
+    color:#fff;
+    border:2px solid rgba(212,175,55,.3);
+}
+
+/* Final Celebration */
+.final{
+    position:fixed; inset:0;
+    background:linear-gradient(135deg,#1a1a1a,#2d1b1b);
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:20;
+    text-align:center;
+}
+
+.final h1{
+    font-size:4rem;
+    font-family:'Playfair Display',serif;
+    background:linear-gradient(135deg,#d4af37,#f4d03f);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.final p{
+    font-size:1.3rem;
+    margin-top:15px;
+    color:#f4d03f;
+}
+
+/* Memory Reveal */
+.memory-container{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:repeat(2,140px);
+    gap:20px;
+}
+
+.memory{
+    width:140px;
+    height:140px;
+    border-radius:20px;
+    overflow:hidden;
+    cursor:pointer;
+    position:relative;
+    background:linear-gradient(135deg,#ec4899,#f472b6);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2.5rem;
+    box-shadow:0 8px 20px rgba(236,72,153,.4);
+}
+
+.memory img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity .5s ease;
+}
+
+.memory.revealed img{opacity:1}
+.memory.revealed span{opacity:0}
+
+/* Confetti */
+.confetti{
+    position:absolute;
+    font-size:2rem;
+    animation:fall 4s linear infinite;
+}
+@keyframes fall{
+    from{transform:translateY(-10vh)}
+    to{transform:translateY(110vh)}
+}
+
+/* Music */
+.music-btn{
+    position:fixed;
+    bottom:20px; right:20px;
+    width:60px;height:60px;
+    border-radius:50%;
+    background:rgba(212,175,55,.2);
+    color:rgba(212,175,55,.7);
+    font-size:1.5rem;
+    border:2px solid rgba(212,175,55,.3);
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="floating-hearts-bg" id="hearts"></div>
+
+<div class="intro" id="intro">
+    <h1>Hey Bri 💕</h1>
+    <p>I made something special for you…</p>
+    <button onclick="startExperience()">Start ✨</button>
+</div>
+
+<div class="container" id="main">
+    <div class="typewriter" id="typeText"></div>
+    <div class="question">Will you be my Valentine? 💖</div>
+    <div class="buttons">
+        <button class="yes-btn" onclick="sayYes()">YES 💕</button>
+        <button class="no-btn" id="noBtn">No 🙃</button>
+    </div>
+</div>
+
+<div class="final" id="final">
+    <h1>SHE SAID YES 💘</h1>
+    <p>Forever my Valentine, Bri ❤️</p>
+    <p>Tap the hearts</p>
+
+    <div class="memory-container">
+        <div class="memory" onclick="reveal(this)">
+            <span>💖</span>
+            <img src="photos/IMG_2343.jpg">
+        </div>
+        <div class="memory" onclick="reveal(this)">
+            <span>💕</span>
+            <img src="photos/100_0002.JPG">
+        </div>
+        <div class="memory" onclick="reveal(this)">
+            <span>💗</span>
+            <img src="photos/IMG_2336.jpg">
+        </div>
+        <div class="memory" onclick="reveal(this)">
+            <span>💝</span>
+            <img src="photos/IMG_2340.jpg">
+        </div>
+    </div>
+</div>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+<audio id="music" loop>
+    <source src="ishq.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* Floating hearts */
+setInterval(()=>{
+    const h=document.createElement('div');
+    h.className='floating-heart';
+    h.innerHTML=['💖','💕','💗','💝','✨'][Math.floor(Math.random()*5)];
+    h.style.left=Math.random()*100+'%';
+    document.getElementById('hearts').appendChild(h);
+    setTimeout(()=>h.remove(),15000);
+},700);
+
+/* Intro */
+function startExperience(){
+    intro.style.display='none';
+    main.style.display='block';
+    typeText();
+    music.play();
+}
+
+/* Typewriter */
+const message=`Hi my love, I just want you to know that you make me the happiest person in the world. No amount of time with you ever feels like enough. You make me feel safe and loved, and I honestly can’t imagine my life without you. I love our nightly FaceTime calls, going to card shows together, going to Taco Bell, and spending time cuddling and watching shows and movies together. I know this is a little later than expected, but there’s something I’ve been wanting to ask you…`;
+let i=0;
+function typeText(){
+    if(i<message.length){
+        typeTextDiv.innerHTML+=message.charAt(i);
+        i++;
+        setTimeout(typeText,35);
+    }
+}
+const typeTextDiv=document.getElementById('typeText');
+
+/* No dodge */
+const noBtn=document.getElementById('noBtn');
+noBtn.addEventListener('mouseenter',()=>{
+    noBtn.style.transform=`translate(${Math.random()*400-200}px,${Math.random()*400-200}px)`;
+});
+
+/* YES */
+function sayYes(){
+    final.style.display='flex';
+    for(let i=0;i<80;i++){
+        const c=document.createElement('div');
+        c.className='confetti';
+        c.innerHTML=['💖','💕','💘','✨'][Math.floor(Math.random()*4)];
+        c.style.left=Math.random()*100+'%';
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),4000);
+    }
+}
+
+/* Reveal photos */
+function reveal(el){
+    el.classList.add('revealed');
+}
+
+/* Music */
+const music=document.getElementById('music');
+function toggleMusic(){
+    music.paused?music.play():music.pause();
+}
+</script>
+
+</body>
+</html>

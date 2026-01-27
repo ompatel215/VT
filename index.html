@@ -3,115 +3,274 @@
 <head>
     <title>Welcome to Bri's Site</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            background: #fdf2f8;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 50%, #1a1a1a 100%);
             font-family: 'Roboto', Arial, sans-serif;
+            position: relative;
+            overflow-x: hidden;
         }
+        
+        /* Floating hearts background */
+        body::before {
+            content: '💖 ✨ 💕 ⭐ 💝 ✨ 💗 ⭐';
+            position: fixed;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 200%;
+            font-size: 2rem;
+            opacity: 0.15;
+            animation: floatDown 30s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+            line-height: 4rem;
+            word-spacing: 3rem;
+        }
+        
+        @keyframes floatDown {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(50%) rotate(360deg);
+            }
+        }
+        
         .homepage-container {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(236, 72, 153, 0.15);
-            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(45, 27, 27, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 
+                0 8px 32px rgba(236, 72, 153, 0.3),
+                0 2px 8px rgba(212, 175, 55, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            padding: 50px 40px;
             text-align: center;
-            max-width: 500px;
+            max-width: 520px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.6s ease-out;
+            border: 2px solid rgba(212, 175, 55, 0.3);
         }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .homepage-title {
-            font-size: 2.2rem;
-            color: #be185d;
-            margin-bottom: 14px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 18px;
             font-weight: 700;
+            letter-spacing: 0.5px;
+            animation: titlePulse 3s ease-in-out infinite;
         }
+        
+        @keyframes titlePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+        
         .homepage-desc {
-            font-size: 1.1rem;
-            color: #4a5568;
-            margin-bottom: 30px;
-            line-height: 1.6;
+            font-size: 1.05rem;
+            color: #e5e5e5;
+            margin-bottom: 35px;
+            line-height: 1.7;
+            font-weight: 400;
         }
+        
         .nav-buttons {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            margin-bottom: 30px;
+            gap: 14px;
+            margin-bottom: 25px;
         }
+        
         .nav-button {
             display: inline-block;
-            padding: 16px 24px;
-            background: #ec4899;
-            color: #fff;
-            border-radius: 12px;
+            padding: 18px 28px;
+            border-radius: 14px;
             font-size: 1.1rem;
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.2s;
-            border: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInButton 0.5s ease-out backwards;
+            /* Dim uniform color for all buttons */
+            background: rgba(212, 175, 55, 0.2);
+            color: rgba(212, 175, 55, 0.7);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.1);
         }
-        .nav-button:hover {
-            background: #be185d;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+        
+        .nav-button:nth-child(1) { animation-delay: 0.1s; }
+        .nav-button:nth-child(2) { animation-delay: 0.2s; }
+        .nav-button:nth-child(3) { animation-delay: 0.3s; }
+        .nav-button:nth-child(4) { animation-delay: 0.4s; }
+        .nav-button:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes fadeInButton {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
+        
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .nav-button:hover::before {
+            left: 100%;
+        }
+        
+        .nav-button:nth-child(odd):hover {
+            background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+            color: #fff;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.8), 0 0 30px rgba(236, 72, 153, 0.4);
+            border-color: rgba(236, 72, 153, 0.9);
+        }
+        .nav-button:nth-child(even):hover {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #000;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.8), 0 0 30px rgba(212, 175, 55, 0.4);
+            border-color: rgba(212, 175, 55, 0.9);
+        }
+        
+        .nav-button:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+        
         .nav-button.coming-soon {
-            background: #fbbf24;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
             cursor: not-allowed;
+            color: #000;
         }
+        
         .nav-button.coming-soon:hover {
-            background: #fbbf24;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
             transform: none;
-            box-shadow: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
         }
+        
+        .nav-button.coming-soon::before {
+            display: none;
+        }
+        
         .coming-soon-text {
-            font-size: 0.9rem;
-            color: #64748b;
-            margin-top: 8px;
+            font-size: 0.95rem;
+            color: #d4af37;
+            margin-top: 12px;
+            font-style: italic;
+            animation: fadeIn 0.8s ease-out 0.5s backwards;
         }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
         .logout-btn {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 8px 16px;
-            background: #94a3b8;
-            color: white;
-            border: none;
-            border-radius: 20px;
+            top: 24px;
+            right: 24px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 100%);
+            backdrop-filter: blur(8px);
+            color: #d4af37;
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            border-radius: 24px;
             cursor: pointer;
             font-size: 0.9rem;
-            transition: background 0.2s;
+            font-weight: 500;
+            transition: all 0.3s;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
         }
+        
         .logout-btn:hover {
-            background: #64748b;
+            background: linear-gradient(135deg, #2d1b1b 0%, #1a1a1a 100%);
+            color: #f4d03f;
+            border-color: rgba(212, 175, 55, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .homepage-container {
+                padding: 40px 30px;
+            }
+            
+            .homepage-title {
+                font-size: 2.2rem;
+            }
+            
+            .homepage-desc {
+                font-size: 1rem;
+            }
+            
+            .nav-button {
+                font-size: 1rem;
+                padding: 16px 24px;
+            }
         }
     </style>
     <script>
         // Check authentication on page load
         window.onload = function() {
-            if (localStorage.getItem('siteAuthenticated') !== 'true') {
+            if (localStorage.getItem('authenticated') !== 'true') {
                 window.location.href = 'login.html';
-                return;
             }
-            
-            // Check if login is still valid (24 hours)
-            const loginTime = localStorage.getItem('loginTime');
-            if (loginTime) {
-                const currentTime = Date.now();
-                const hoursSinceLogin = (currentTime - loginTime) / (1000 * 60 * 60);
-                
-                if (hoursSinceLogin >= 24) {
-                    // Clear expired authentication
-                    localStorage.removeItem('siteAuthenticated');
-                    localStorage.removeItem('loginTime');
-                    window.location.href = 'login.html';
-                    return;
-                }
-            }
-        }
+        };
     </script>
 </head>
 <body>
@@ -127,18 +286,21 @@
             For every birthday, every milestone, and all the magic in between… there'll be a page waiting here.
         </p>
         <div class="nav-buttons">
-            <a href="secret.html" class="nav-button">💝 Valentine's Day</a>
-            <a href="girlfriends-day.html" class="nav-button">💕 Girlfriend's Day</a>
-            <a href="birthday.html" class="nav-button">🎂 20th Birthday</a>
+            
+            <a href="valentines-2026.html" class="nav-button">💖 Valentine's 2026</a>
             <a href="daily-games.html" class="nav-button">🎮 Daily Games</a>
+            <a href="birthday.html" class="nav-button">🎂 20th Birthday</a>
+            <a href="girlfriends-day.html" class="nav-button">💕 Girlfriend's Day</a>
+            <a href="secret.html" class="nav-button">💝 Valentine's 2025</a>
         </div>
         <div class="coming-soon-text">More surprises coming soon!</div>
     </div>
 
     <script>
         function logout() {
-            localStorage.removeItem('siteAuthenticated');
-            localStorage.removeItem('loginTime');
+            // Clear authentication from localStorage
+            localStorage.removeItem('authenticated');
+            // Redirect to login
             window.location.href = 'login.html';
         }
     </script>
