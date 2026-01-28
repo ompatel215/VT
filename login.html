@@ -249,21 +249,10 @@
     </div>
 
     <script>
-        // Client-side password hashing
-        async function hashPassword(password) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(password);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-            return hashHex;
-        }
-        
-        // Stored password hash (SHA-256 hash of 'love')
-        const PASSWORD_HASH = '686f746a95b6f836d7d70567c302c3f9ebb5ee0def3d1220ee9d4e9f34f5e131';
         const USERNAME = 'bri';
+        const PASSWORD = 'love';
         
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const username = document.getElementById('username').value;
@@ -271,30 +260,16 @@
             const errorMessage = document.getElementById('errorMessage');
             const submitBtn = document.querySelector('.login-btn');
             
-            // Disable button during processing
             submitBtn.disabled = true;
             submitBtn.textContent = 'Logging in...';
             errorMessage.style.display = 'none';
             
-            try {
-                // Hash the entered password
-                const passwordHash = await hashPassword(password);
-                
-                // Check credentials
-                if (username === USERNAME && passwordHash === PASSWORD_HASH) {
-                    // Store authentication in localStorage
-                    localStorage.setItem('authenticated', 'true');
-                    // Redirect to the main site
-                    window.location.href = 'index.html';
-                } else {
-                    errorMessage.style.display = 'block';
-                    document.getElementById('password').value = '';
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Login';
-                }
-            } catch (error) {
-                errorMessage.textContent = 'An error occurred. Please try again.';
+            if (username === USERNAME && password === PASSWORD) {
+                localStorage.setItem('authenticated', 'true');
+                window.location.href = 'index.html';
+            } else {
                 errorMessage.style.display = 'block';
+                document.getElementById('password').value = '';
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Login';
             }
