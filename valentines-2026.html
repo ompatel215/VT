@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Will You Be My Valentine?</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
@@ -9,11 +10,21 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 
+html{
+    min-height:100%;
+    -webkit-text-size-adjust:100%;
+    overflow-y:scroll;
+}
+
 body{
     background:linear-gradient(135deg,#1a1a1a,#2d1b1b,#1a1a1a);
     font-family:'Roboto',sans-serif;
     min-height:100vh;
-    overflow:hidden;
+    min-height:100dvh;
+    min-height:-webkit-fill-available;
+    overflow-x:hidden;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
 }
 
 /* Floating hearts */
